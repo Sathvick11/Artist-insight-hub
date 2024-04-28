@@ -1,14 +1,14 @@
 #AUTHOR : Sathvick Bindinganavale Srinath
 #USAGE : The programs retrieves data from Spotify using the API and queries it using streamlit.
 
-#import streamlit as st
+import streamlit as st
 import pandas as pd
 import requests
 import json
 import base64
 
-CLIENT_ID = '0bab30e123f5414caeac70d9ddf71971'
-CLIENT_SECRET = 'a18baffa498049e58b1484841bf36af5'
+CLIENT_ID = st.secrets('CLIENT_ID')
+CLIENT_SECRET = st.secrets('CLIENT_SECRET')
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 BASE_URL = 'https://api.spotify.com/v1/'
 
