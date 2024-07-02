@@ -23,9 +23,11 @@ def get_access_token():
     return access_token
 
 headers = {
-    'Authorization': 'Bearer {token}'.format(token=get_access_token())
+    'Authorization': 'Bearer {token}'.format(token=get_access_token()),
+    "Content-Type": "application/json"
 }
 
+@st.cache_data
 def get_artist_id(artist_name):
     url = BASE_URL + 'search'
     search_filter = f'?q={artist_name}&type=artist&limit=1'
@@ -36,6 +38,7 @@ def get_artist_id(artist_name):
     result = result_['id'] 
     return result
 
+@st.cache_data
 def get_artist_image(artist_name):
     url = BASE_URL + 'search'
     search_filter = f'?q={artist_name}&type=artist&limit=1'
@@ -46,6 +49,7 @@ def get_artist_image(artist_name):
     result = result_["images"][1]["url"]
     return result
 
+@st.cache_data
 def get_artist_name(artist_name):
     url = BASE_URL + 'search'
     search_filter = f'?q={artist_name}&type=artist&limit=1'
@@ -56,6 +60,7 @@ def get_artist_name(artist_name):
     result = result_["name"]
     return result    
 
+@st.cache_data
 def get_artist_popularity(artist_name):
     url = BASE_URL + 'search'
     search_filter = f'?q={artist_name}&type=artist&limit=1'
@@ -66,12 +71,14 @@ def get_artist_popularity(artist_name):
     result = result_["popularity"]
     return result    
 
+@st.cache_data
 def artist_top_tracks(artist_name):
-    url  =BASE_URL + f'artists/{get_artist_id(artist_name)}/top-tracks?market=IN'
+    url  =BASE_URL + f'artists/{get_artist_id(artist_name)}/top-tracks?market=DE'
     result = requests.get(url,headers=headers)
     json_result = json.loads(result.content)['tracks']
     return json_result
 
+@st.cache_data
 def get_artist_genre(artist_name):
     url = BASE_URL + 'search'
     search_filter = f'?q={artist_name}&type=artist&limit=1'
@@ -82,6 +89,7 @@ def get_artist_genre(artist_name):
     result = result_["genres"]
     return result
 
+@st.cache_data
 def get_artist_popularity(artist_name):
     url = BASE_URL + 'search'
     search_filter = f'?q={artist_name}&type=artist&limit=1'
@@ -91,6 +99,8 @@ def get_artist_popularity(artist_name):
     result_ = json_result[0]
     result = result_["popularity"]
     return result
+
+    
 #artist_id = '36QJpDe2go2KgaRleHCDTp'
 #result = requests.get(BASE_URL + 'artists/' + artist_id + '/albums', 
 #                 headers=headers, 
